@@ -85,7 +85,6 @@ const ReadMore = ({
 
 	const hideBtn = () => {
 		if (!_container.current) return false;
-		console.log(_container.current.scrollHeight);
 		return _container.current.scrollHeight <= height;
 	};
 
