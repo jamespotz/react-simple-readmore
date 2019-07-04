@@ -10,8 +10,8 @@ const getDefaultStyle = (duration, easing) => {
 const ReadMore = ({
 	minHeight,
 	displayHeight,
-	label,
-	labelShown,
+	btnText,
+	btnTextShown,
 	timing,
 	timingFunction,
 	defaultShownOnLess,
@@ -31,11 +31,11 @@ const ReadMore = ({
 	useEffect(() => {
 		if (minHeight) setHeight(minHeight);
 		if (displayHeight) setFinalHeight(displayHeight);
-		if (label) setBtnLabel(label);
-		if (labelShown) setBtnLabelShown(labelShown);
+		if (btnText) setBtnLabel(btnText);
+		if (btnTextShown) setBtnLabelShown(btnTextShown);
 		if (timing) setDuration(timing);
 		if (timingFunction) setEasing(timingFunction);
-	}, [displayHeight, label, labelShown, minHeight, timing, timingFunction]);
+	}, [btnText, btnTextShown, displayHeight, minHeight, timing, timingFunction]);
 
 	const getContainerHeight = () => {
 		const target = _container.current;
