@@ -1,7 +1,7 @@
 {
 	"name": "@jamespotz/react-simple-readmore",
 	"author": "jamespotz",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"private": false,
 	"license": "(ISC OR GPL-3.0)",
 	"main": "dist/index.js",
