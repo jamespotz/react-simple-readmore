@@ -7,7 +7,7 @@ React component for animating height using Transitions.
 Get it from npm
 
 ```
-$ npm install --save react-animate-height
+$ npm install --save @jamespotz/react-simple-readmore
 ```
 
 ## Note
