@@ -42,6 +42,20 @@ const ReadMore = ({
 		return `${target.scrollHeight}px`;
 	};
 
+	const animate = (fn, delay) => {
+		const start = new Date().getTime();
+
+		const loop = () => {
+			const current = new Date().getTime();
+			const elapsedTime = current - start;
+
+			elapsedTime >= delay ? fn.call() : requestAnimationFrame(loop);
+		};
+
+		requestAnimationFrame(loop);
+		return;
+	};
+
 	const showContents = () => {
 		const newHeight = getContainerHeight();
 		setBeforeHeight(height);
@@ -49,13 +63,13 @@ const ReadMore = ({
 
 		if (defaultShownOnLess) {
 			setShown(true);
-			setTimeout(() => {
+			animate(() => {
 				setHeight(finalHeight);
 			}, duration);
 			return;
 		}
 
-		setTimeout(() => {
+		animate(() => {
 			setHeight(finalHeight);
 			setShown(true);
 		}, duration);
@@ -65,11 +79,11 @@ const ReadMore = ({
 		const { current } = container;
 		setHeight(current.scrollHeight);
 
-		setTimeout(() => {
+		animate(() => {
 			setHeight(beforeHeight);
 		}, 1);
 
-		setTimeout(() => {
+		animate(() => {
 			setShown(false);
 		}, duration);
 	};
