@@ -4,6 +4,12 @@
 	"version": "0.1.2",
 	"private": false,
 	"license": "(ISC OR GPL-3.0)",
+	"keywords": [
+		"npm",
+		"react",
+		"read more",
+		"animate height"
+	],
 	"main": "dist/index.js",
 	"module": "dist/index.js",
 	"babel": {
