@@ -3,7 +3,7 @@
 	"author": "jamespotz",
 	"version": "0.2.2",
 	"private": false,
-	"license": "(ISC OR GPL-3.0)",
+	"license": "GPL-3.0",
 	"keywords": [
 		"npm",
 		"react",
