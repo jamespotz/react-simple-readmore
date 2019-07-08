@@ -75,7 +75,7 @@ const ReadMore = ({
 		animate(() => {
 			setHeight(finalHeight);
 			setShown(true);
-			onClick.call(null, true);
+			if (onClick) onClick.call(null, true);
 		}, duration);
 	};
 
@@ -89,7 +89,7 @@ const ReadMore = ({
 
 		animate(() => {
 			setShown(false);
-			onClick.call(null, false);
+			if (onClick) onClick.call(null, false);
 		}, duration);
 	};
 
