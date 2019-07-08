@@ -8,7 +8,7 @@ const App = () => {
 
 	return (
 		<ReadMore
-			// onClick={value => setShown(value)}
+			onClick="test"
 			btn={
 				<button
 					style={{

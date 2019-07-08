@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
 const getDefaultStyle = (duration, easing) => {
 	return {
@@ -75,7 +76,7 @@ const ReadMore = ({
 		animate(() => {
 			setHeight(finalHeight);
 			setShown(true);
-			if (onClick) onClick.call(null, true);
+			if (typeof onClick === 'function') onClick.call(null, true);
 		}, duration);
 	};
 
@@ -89,7 +90,7 @@ const ReadMore = ({
 
 		animate(() => {
 			setShown(false);
-			if (onClick) onClick.call(null, false);
+			if (typeof onClick === 'function') onClick.call(null, false);
 		}, duration);
 	};
 
@@ -145,6 +146,22 @@ const ReadMore = ({
 			</div>
 		</div>
 	);
+};
+
+ReadMore.propTypes = {
+	minHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	displayHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	btnText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	btnTextShown: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+	timing: PropTypes.number,
+	timingFunction: PropTypes.string,
+	defaultShownOnLess: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.element
+	]),
+	btn: PropTypes.element,
+	onClick: PropTypes.func,
+	children: PropTypes.element.isRequired
 };
 
 export default ReadMore;

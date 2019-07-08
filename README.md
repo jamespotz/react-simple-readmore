@@ -69,7 +69,7 @@ Then open [`localhost:3000`](http://localhost:3000) in your browser of choice.
 
 | Prop               | Type                                             |   Default |
 | :----------------- | :----------------------------------------------- | --------: |
-| minHeight          | Number                                           |        50 |
+| minHeight          | Number/String                                    |        50 |
 | displayHeight      | Number/String                                    |    'auto' |
 | btnText            | Text/Component (props ignored if btn is present) |           |
 | btnTextShown       | Text/Component (props ignored if btn is present) |           |
