@@ -15,6 +15,9 @@ const ReadMore = ({
 	timing,
 	timingFunction,
 	defaultShownOnLess,
+	btn,
+	btnClassName,
+	onClick,
 	...rest
 }) => {
 	const container = useRef();
@@ -72,6 +75,7 @@ const ReadMore = ({
 		animate(() => {
 			setHeight(finalHeight);
 			setShown(true);
+			onClick.call(null, true);
 		}, duration);
 	};
 
@@ -85,6 +89,7 @@ const ReadMore = ({
 
 		animate(() => {
 			setShown(false);
+			onClick.call(null, false);
 		}, duration);
 	};
 
@@ -107,6 +112,22 @@ const ReadMore = ({
 		return rest.children;
 	};
 
+	const renderBtn = () => {
+		const shouldHideBtn = hideBtn();
+		if (btn) {
+			const newBtn = React.cloneElement(btn, {
+				onClick: toggleHeight
+			});
+			return shouldHideBtn ? null : newBtn;
+		}
+
+		return shouldHideBtn ? null : (
+			<button onClick={toggleHeight} className={btnClassName}>
+				{show ? btnLabelShown : btnLabel}
+			</button>
+		);
+	};
+
 	return (
 		<div>
 			<div
@@ -115,11 +136,7 @@ const ReadMore = ({
 			>
 				{showChildren()}
 			</div>
-			{hideBtn() ? null : (
-				<button onClick={toggleHeight} className={rest.btnClassName}>
-					{show ? btnLabelShown : btnLabel}
-				</button>
-			)}
+			{renderBtn()}
 			<div
 				style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}
 				ref={_container}
