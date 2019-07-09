@@ -85,8 +85,6 @@ const ReadMore = ({
 	const hideContents = () => {
 		const newHeight = getContainerHeight();
 		setHeight(newHeight);
-
-		setShown(false);
 		if (typeof onClick === 'function') onClick.call(null, false);
 
 		animate(() => {
@@ -95,6 +93,7 @@ const ReadMore = ({
 
 		animate(() => {
 			setHeight(beforeHeight);
+			setShown(false);
 		}, duration);
 	};
 
