@@ -84,11 +84,10 @@ const ReadMore = ({
 
 	const hideContents = () => {
 		const newHeight = getContainerHeight();
-		setHeight(newHeight);
-		if (typeof onClick === 'function') onClick.call(null, false);
 
 		animate(() => {
-			setHeight(beforeHeight);
+			setHeight(newHeight);
+			if (typeof onClick === 'function') onClick.call(null, false);
 		}, 1);
 
 		animate(() => {
@@ -133,7 +132,7 @@ const ReadMore = ({
 	};
 
 	return (
-		<div>
+		<div style={{ position: 'relative' }}>
 			<div
 				ref={container}
 				style={{ height, ...getDefaultStyle(duration, easing) }}
@@ -142,7 +141,12 @@ const ReadMore = ({
 			</div>
 			{renderBtn()}
 			<div
-				style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}
+				style={{
+					position: 'absolute',
+					top: '-9999px',
+					left: '-9999px',
+					width: '100%'
+				}}
 				ref={_container}
 			>
 				{rest.children}
