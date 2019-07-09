@@ -9,7 +9,6 @@ const App = () => {
 	return (
 		<ReadMore
 			onClick={value => {
-				console.log(value);
 				setShown(value);
 			}}
 			btn={

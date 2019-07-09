@@ -43,10 +43,12 @@ const ReadMore = ({
 	}, [btnText, btnTextShown, displayHeight, minHeight, timing, timingFunction]);
 
 	useEffect(() => {
+		if (_container.current.scrollHeight === 0) return;
+		if (_container.current.scrollHeight === maxAvailableHeight) return;
 		if (rest.children) {
 			setMaxAvailableHeight(_container.current.scrollHeight);
 		}
-	}, [rest.children]);
+	}, [maxAvailableHeight, rest.children]);
 
 	const getContainerHeight = () => {
 		const target = _container.current;
@@ -72,32 +74,27 @@ const ReadMore = ({
 		setBeforeHeight(height);
 		setHeight(newHeight);
 
-		if (defaultShownOnLess) {
-			setShown(true);
-			animate(() => {
-				setHeight(finalHeight);
-			}, duration);
-			return;
-		}
+		setShown(true);
+		if (typeof onClick === 'function') onClick.call(null, true);
 
 		animate(() => {
 			setHeight(finalHeight);
-			setShown(true);
-			if (typeof onClick === 'function') onClick.call(null, true);
 		}, duration);
 	};
 
 	const hideContents = () => {
-		const { current } = container;
-		setHeight(current.scrollHeight);
+		const newHeight = getContainerHeight();
+		setHeight(newHeight);
+
+		setShown(false);
+		if (typeof onClick === 'function') onClick.call(null, false);
 
 		animate(() => {
 			setHeight(beforeHeight);
 		}, 1);
 
 		animate(() => {
-			setShown(false);
-			if (typeof onClick === 'function') onClick.call(null, false);
+			setHeight(beforeHeight);
 		}, duration);
 	};
 
