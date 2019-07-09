@@ -31,6 +31,7 @@ const ReadMore = ({
 	const [easing, setEasing] = useState('ease-in');
 	const [btnLabel, setBtnLabel] = useState('Read More');
 	const [btnLabelShown, setBtnLabelShown] = useState('Read Less');
+	const [maxAvailableHeight, setMaxAvailableHeight] = useState(0);
 
 	useEffect(() => {
 		if (minHeight) setHeight(minHeight);
@@ -40,6 +41,12 @@ const ReadMore = ({
 		if (timing) setDuration(timing);
 		if (timingFunction) setEasing(timingFunction);
 	}, [btnText, btnTextShown, displayHeight, minHeight, timing, timingFunction]);
+
+	useEffect(() => {
+		if (rest.children) {
+			setMaxAvailableHeight(_container.current.scrollHeight);
+		}
+	}, [rest.children]);
 
 	const getContainerHeight = () => {
 		const target = _container.current;
@@ -105,7 +112,7 @@ const ReadMore = ({
 
 	const hideBtn = () => {
 		if (!_container.current) return false;
-		return _container.current.scrollHeight <= height;
+		return maxAvailableHeight <= height;
 	};
 
 	const showChildren = () => {
