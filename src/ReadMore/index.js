@@ -92,8 +92,11 @@ const ReadMore = ({
 
 		animate(() => {
 			setHeight(beforeHeight);
-			setShown(false);
 		}, duration);
+
+		animate(() => {
+			setShown(false);
+		}, duration * 2);
 	};
 
 	const toggleHeight = () => {

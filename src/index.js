@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import ReadMore from './ReadMore';
 import text from './data';
+import truncate from 'lodash/truncate';
 
 const App = () => {
 	const [shown, setShown] = useState(false);
@@ -9,6 +10,7 @@ const App = () => {
 	return (
 		<div style={{ width: 500 }}>
 			<ReadMore
+				minHeight={150}
 				onClick={value => {
 					setShown(value);
 				}}
@@ -22,6 +24,13 @@ const App = () => {
 					>
 						{shown ? 'Read Less' : 'Read More'}
 					</button>
+				}
+				defaultShownOnLess={
+					<p
+						dangerouslySetInnerHTML={{
+							__html: truncate(text, { length: 500 })
+						}}
+					/>
 				}
 			>
 				<p
