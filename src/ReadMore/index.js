@@ -18,6 +18,7 @@ const ReadMore = ({
 	defaultShownOnLess,
 	btn,
 	btnClassName,
+	btnStyles,
 	onClick,
 	...rest
 }) => {
@@ -128,7 +129,11 @@ const ReadMore = ({
 		}
 
 		return shouldHideBtn ? null : (
-			<button onClick={toggleHeight} className={btnClassName}>
+			<button
+				onClick={toggleHeight}
+				className={btnClassName}
+				style={{ ...btnStyles }}
+			>
 				{show ? btnLabelShown : btnLabel}
 			</button>
 		);
@@ -171,7 +176,9 @@ ReadMore.propTypes = {
 	]),
 	btn: PropTypes.element,
 	onClick: PropTypes.func,
-	children: PropTypes.element.isRequired
+	children: PropTypes.element.isRequired,
+	btnStyles: PropTypes.object,
+	btnClassName: PropTypes.string
 };
 
 export default ReadMore;

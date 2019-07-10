@@ -74,7 +74,9 @@ Then open [`localhost:3000`](http://localhost:3000) in your browser of choice.
 | btnText            | Text/Component (props ignored if btn is present) |           |
 | btnTextShown       | Text/Component (props ignored if btn is present) |           |
 | timing             | Number                                           |       350 |
-| timingFunction     | STRING                                           | 'ease-in' |
+| timingFunction     | String                                           | 'ease-in' |
 | defaultShownOnLess | Text/Component                                   |           |
 | btn                | Component                                        |           |
 | onClick            | Function                                         |           |
+| btnClassName       | String                                           |           |
+| btnStyles          | Object                                           |           |
