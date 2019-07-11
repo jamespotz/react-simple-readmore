@@ -176,7 +176,7 @@ ReadMore.propTypes = {
 	]),
 	btn: PropTypes.element,
 	onClick: PropTypes.func,
-	children: PropTypes.element.isRequired,
+	children: PropTypes.node.isRequired,
 	btnStyles: PropTypes.object,
 	btnClassName: PropTypes.string
 };
