@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const getDefaultStyle = (duration, easing) => {
 	return {
 		overflow: 'hidden',
+		position: 'relative',
 		transition: `height ${duration}ms ${easing}`
 	};
 };
@@ -139,6 +140,26 @@ const ReadMore = ({
 		);
 	};
 
+	const renderBlur = () => {
+		if (!rest.blur) return null;
+		if (show) return null;
+
+		const colorStopTop = rest.colorStopTop || 'rgba(255, 255, 255, 0)';
+		const colorStopBottom = rest.colorStopBottom || 'white';
+		return (
+			<div
+				className="blur"
+				style={{
+					width: '100%',
+					position: 'absolute',
+					height: height / 2,
+					bottom: 0,
+					backgroundImage: `linear-gradient(to bottom, ${colorStopTop}, ${colorStopBottom})`
+				}}
+			/>
+		);
+	};
+
 	return (
 		<div style={{ position: 'relative' }}>
 			<div
@@ -146,6 +167,7 @@ const ReadMore = ({
 				style={{ height, ...getDefaultStyle(duration, easing) }}
 			>
 				{showChildren()}
+				{renderBlur()}
 			</div>
 			{renderBtn()}
 			<div
@@ -178,7 +200,10 @@ ReadMore.propTypes = {
 	onClick: PropTypes.func,
 	children: PropTypes.node.isRequired,
 	btnStyles: PropTypes.object,
-	btnClassName: PropTypes.string
+	btnClassName: PropTypes.string,
+	blur: PropTypes.bool,
+	colorStopBottom: PropTypes.string,
+	colorStopTop: PropTypes.string
 };
 
 export default ReadMore;

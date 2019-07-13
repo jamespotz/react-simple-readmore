@@ -67,16 +67,19 @@ Then open [`localhost:3000`](http://localhost:3000) in your browser of choice.
 
 ## API
 
-| Prop               | Type                                             |   Default |
-| :----------------- | :----------------------------------------------- | --------: |
-| minHeight          | Number/String                                    |        50 |
-| displayHeight      | Number/String                                    |    'auto' |
-| btnText            | Text/Component (props ignored if btn is present) |           |
-| btnTextShown       | Text/Component (props ignored if btn is present) |           |
-| timing             | Number                                           |       350 |
-| timingFunction     | String                                           | 'ease-in' |
-| defaultShownOnLess | Text/Component                                   |           |
-| btn                | Component                                        |           |
-| onClick            | Function                                         |           |
-| btnClassName       | String                                           |           |
-| btnStyles          | Object                                           |           |
+| Prop               | Type                                             |                  Default |
+| :----------------- | :----------------------------------------------- | -----------------------: |
+| minHeight          | Number/String                                    |                       50 |
+| displayHeight      | Number/String                                    |                   'auto' |
+| btnText            | Text/Component (props ignored if btn is present) |                          |
+| btnTextShown       | Text/Component (props ignored if btn is present) |                          |
+| timing             | Number                                           |                      350 |
+| timingFunction     | String                                           |                'ease-in' |
+| defaultShownOnLess | Text/Component                                   |                          |
+| btn                | Component                                        |                          |
+| onClick            | Function                                         |                          |
+| btnClassName       | String                                           |                          |
+| btnStyles          | Object                                           |                          |
+| blur               | Boolean                                          |                          |
+| colorStopTop       | String                                           | 'rgba(255, 255, 255, 0)' |
+| colorStopBottom    | String                                           |                  'white' |
