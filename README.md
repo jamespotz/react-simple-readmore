@@ -81,5 +81,6 @@ Then open [`localhost:3000`](http://localhost:3000) in your browser of choice.
 | btnClassName       | String                                           |                          |
 | btnStyles          | Object                                           |                          |
 | blur               | Boolean                                          |                          |
+| blurHeight         | Number                                           |              minHeight/2 |
 | colorStopTop       | String                                           | 'rgba(255, 255, 255, 0)' |
 | colorStopBottom    | String                                           |                  'white' |

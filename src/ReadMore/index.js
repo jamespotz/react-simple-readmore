@@ -146,13 +146,15 @@ const ReadMore = ({
 
 		const colorStopTop = rest.colorStopTop || 'rgba(255, 255, 255, 0)';
 		const colorStopBottom = rest.colorStopBottom || 'white';
+		const blurHeight = rest.blurHeight || height / 2;
+
 		return (
 			<div
-				className="blur"
+				className="readmore--blur"
 				style={{
 					width: '100%',
 					position: 'absolute',
-					height: height / 2,
+					height: blurHeight,
 					bottom: 0,
 					backgroundImage: `linear-gradient(to bottom, ${colorStopTop}, ${colorStopBottom})`
 				}}
@@ -161,8 +163,9 @@ const ReadMore = ({
 	};
 
 	return (
-		<div style={{ position: 'relative' }}>
+		<div className="readmore__wrapper" style={{ position: 'relative' }}>
 			<div
+				className="readmore__container"
 				ref={container}
 				style={{ height, ...getDefaultStyle(duration, easing) }}
 			>
@@ -171,6 +174,7 @@ const ReadMore = ({
 			</div>
 			{renderBtn()}
 			<div
+				className="reademore__hidden_content"
 				style={{
 					position: 'absolute',
 					top: '-9999px',
