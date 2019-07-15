@@ -16,7 +16,7 @@ For React >= 16.8 because of Hooks.
 
 ## How to use
 
-```js
+```javascript
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import ReadMore from '@jamespotz/react-simple-readmore';
@@ -28,6 +28,7 @@ const App = () => {
 	return (
 		<ReadMore
 			onClick={value => setShown(value)}
+			fade
 			btn={
 				<button
 					style={{
@@ -80,7 +81,7 @@ Then open [`localhost:3000`](http://localhost:3000) in your browser of choice.
 | onClick            | Function                                         |                          |
 | btnClassName       | String                                           |                          |
 | btnStyles          | Object                                           |                          |
-| blur               | Boolean                                          |                          |
-| blurHeight         | Number                                           |              minHeight/2 |
+| fade               | Boolean                                          |                          |
+| fadeHeight         | Number                                           |              minHeight/2 |
 | colorStopTop       | String                                           | 'rgba(255, 255, 255, 0)' |
 | colorStopBottom    | String                                           |                  'white' |

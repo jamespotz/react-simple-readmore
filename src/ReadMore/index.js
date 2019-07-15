@@ -140,21 +140,21 @@ const ReadMore = ({
 		);
 	};
 
-	const renderBlur = () => {
-		if (!rest.blur) return null;
+	const renderfade = () => {
+		if (!rest.fade) return null;
 		if (show) return null;
 
 		const colorStopTop = rest.colorStopTop || 'rgba(255, 255, 255, 0)';
 		const colorStopBottom = rest.colorStopBottom || 'white';
-		const blurHeight = rest.blurHeight || height / 2;
+		const fadeHeight = rest.fadeHeight || height / 2;
 
 		return (
 			<div
-				className="readmore--blur"
+				className="readmore--fade"
 				style={{
 					width: '100%',
 					position: 'absolute',
-					height: blurHeight,
+					height: fadeHeight,
 					bottom: 0,
 					backgroundImage: `linear-gradient(to bottom, ${colorStopTop}, ${colorStopBottom})`
 				}}
@@ -170,7 +170,7 @@ const ReadMore = ({
 				style={{ height, ...getDefaultStyle(duration, easing) }}
 			>
 				{showChildren()}
-				{renderBlur()}
+				{renderfade()}
 			</div>
 			{renderBtn()}
 			<div
@@ -205,7 +205,8 @@ ReadMore.propTypes = {
 	children: PropTypes.node.isRequired,
 	btnStyles: PropTypes.object,
 	btnClassName: PropTypes.string,
-	blur: PropTypes.bool,
+	fade: PropTypes.bool,
+	fadeHeight: PropTypes.number,
 	colorStopBottom: PropTypes.string,
 	colorStopTop: PropTypes.string
 };
