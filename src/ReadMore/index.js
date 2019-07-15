@@ -34,6 +34,7 @@ const ReadMore = ({
 	const [btnLabel, setBtnLabel] = useState('Read More');
 	const [btnLabelShown, setBtnLabelShown] = useState('Read Less');
 	const [maxAvailableHeight, setMaxAvailableHeight] = useState(0);
+	const [showContent, setShowContent] = useState(false);
 
 	useEffect(() => {
 		if (minHeight) setHeight(minHeight);
@@ -76,6 +77,7 @@ const ReadMore = ({
 		setBeforeHeight(height);
 		setHeight(newHeight);
 
+		setShowContent(true);
 		animate(() => {
 			setHeight(finalHeight);
 			setShown(true);
@@ -96,6 +98,7 @@ const ReadMore = ({
 
 		animate(() => {
 			setShown(false);
+			setShowContent(false);
 			if (typeof onClick === 'function') onClick.call(null, false);
 		}, duration * 2);
 	};
@@ -115,7 +118,7 @@ const ReadMore = ({
 	};
 
 	const showChildren = () => {
-		if (defaultShownOnLess && !show) return defaultShownOnLess;
+		if (defaultShownOnLess && !showContent) return defaultShownOnLess;
 		return rest.children;
 	};
 

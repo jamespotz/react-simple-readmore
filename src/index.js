@@ -10,7 +10,7 @@ const App = () => {
 	return (
 		<div style={{ width: 500 }}>
 			<ReadMore
-				minHeight={250}
+				minHeight={150}
 				onClick={value => {
 					setShown(value);
 				}}
@@ -24,6 +24,13 @@ const App = () => {
 					>
 						{shown ? 'Read Less' : 'Read More'}
 					</button>
+				}
+				defaultShownOnLess={
+					<p
+						dangerouslySetInnerHTML={{
+							__html: truncate(text, { length: 500 })
+						}}
+					/>
 				}
 				fade
 			>
