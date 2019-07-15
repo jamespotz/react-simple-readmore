@@ -76,11 +76,10 @@ const ReadMore = ({
 		setBeforeHeight(height);
 		setHeight(newHeight);
 
-		setShown(true);
-		if (typeof onClick === 'function') onClick.call(null, true);
-
 		animate(() => {
 			setHeight(finalHeight);
+			setShown(true);
+			if (typeof onClick === 'function') onClick.call(null, true);
 		}, duration);
 	};
 
@@ -89,7 +88,6 @@ const ReadMore = ({
 
 		animate(() => {
 			setHeight(newHeight);
-			if (typeof onClick === 'function') onClick.call(null, false);
 		}, 1);
 
 		animate(() => {
@@ -98,6 +96,7 @@ const ReadMore = ({
 
 		animate(() => {
 			setShown(false);
+			if (typeof onClick === 'function') onClick.call(null, false);
 		}, duration * 2);
 	};
 
@@ -143,7 +142,7 @@ const ReadMore = ({
 	const renderFade = () => {
 		if (!rest.fade) return null;
 		if (show) return null;
-		if (contentHasSameHeightOrLess()) return null
+		if (contentHasSameHeightOrLess()) return null;
 
 		const colorStopTop = rest.colorStopTop || 'rgba(255, 255, 255, 0)';
 		const colorStopBottom = rest.colorStopBottom || 'white';
