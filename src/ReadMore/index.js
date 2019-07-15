@@ -110,7 +110,7 @@ const ReadMore = ({
 		showContents();
 	};
 
-	const hideBtn = () => {
+	const contentHasSameHeightOrLess = () => {
 		if (!_container.current) return false;
 		return maxAvailableHeight <= height;
 	};
@@ -121,15 +121,15 @@ const ReadMore = ({
 	};
 
 	const renderBtn = () => {
-		const shouldHideBtn = hideBtn();
+		const shouldHide = contentHasSameHeightOrLess();
 		if (btn) {
 			const newBtn = React.cloneElement(btn, {
 				onClick: toggleHeight
 			});
-			return shouldHideBtn ? null : newBtn;
+			return shouldHide ? null : newBtn;
 		}
 
-		return shouldHideBtn ? null : (
+		return shouldHide ? null : (
 			<button
 				onClick={toggleHeight}
 				className={btnClassName}
@@ -140,9 +140,10 @@ const ReadMore = ({
 		);
 	};
 
-	const renderfade = () => {
+	const renderFade = () => {
 		if (!rest.fade) return null;
 		if (show) return null;
+		if (contentHasSameHeightOrLess()) return null
 
 		const colorStopTop = rest.colorStopTop || 'rgba(255, 255, 255, 0)';
 		const colorStopBottom = rest.colorStopBottom || 'white';
@@ -170,7 +171,7 @@ const ReadMore = ({
 				style={{ height, ...getDefaultStyle(duration, easing) }}
 			>
 				{showChildren()}
-				{renderfade()}
+				{renderFade()}
 			</div>
 			{renderBtn()}
 			<div

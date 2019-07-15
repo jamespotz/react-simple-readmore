@@ -25,7 +25,7 @@ const App = () => {
 						{shown ? 'Read Less' : 'Read More'}
 					</button>
 				}
-				blur
+				fade
 			>
 				<p
 					dangerouslySetInnerHTML={{
