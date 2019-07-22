@@ -33,6 +33,7 @@ const App = () => {
 					/>
 				}
 				fade
+				preset="wobbly"
 			>
 				<p
 					dangerouslySetInnerHTML={{

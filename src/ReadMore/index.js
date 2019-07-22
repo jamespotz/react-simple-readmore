@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { animate, preset } from './helpers/helper';
 
-const getDefaultStyle = (duration, easing) => {
+const getDefaultStyle = () => {
 	return {
 		overflow: 'hidden',
-		position: 'relative',
-		transition: `height ${duration}ms ${easing}`
+		position: 'relative'
 	};
 };
 
@@ -25,25 +25,26 @@ const ReadMore = ({
 }) => {
 	const container = useRef();
 	const _container = useRef();
+	const [selectedPreset, setSelectedPreset] = useState('noWobble');
 	const [height, setHeight] = useState(50);
 	const [beforeHeight, setBeforeHeight] = useState(50);
 	const [finalHeight, setFinalHeight] = useState('auto');
 	const [show, setShown] = useState(false);
-	const [duration, setDuration] = useState(350);
-	const [easing, setEasing] = useState('ease-in');
 	const [btnLabel, setBtnLabel] = useState('Read More');
 	const [btnLabelShown, setBtnLabelShown] = useState('Read Less');
 	const [maxAvailableHeight, setMaxAvailableHeight] = useState(0);
 	const [showContent, setShowContent] = useState(false);
 
 	useEffect(() => {
-		if (minHeight) setHeight(minHeight);
+		if (minHeight) {
+			setHeight(minHeight);
+			setBeforeHeight(minHeight);
+		}
 		if (displayHeight) setFinalHeight(displayHeight);
 		if (btnText) setBtnLabel(btnText);
 		if (btnTextShown) setBtnLabelShown(btnTextShown);
-		if (timing) setDuration(timing);
-		if (timingFunction) setEasing(timingFunction);
-	}, [btnText, btnTextShown, displayHeight, minHeight, timing, timingFunction]);
+		if (preset.hasOwnProperty(rest.preset)) setSelectedPreset(rest.preset);
+	}, [btnText, btnTextShown, displayHeight, minHeight, rest.preset]);
 
 	useEffect(() => {
 		if (_container.current.scrollHeight === 0) return;
@@ -53,54 +54,50 @@ const ReadMore = ({
 		}
 	}, [maxAvailableHeight, rest.children]);
 
-	const getContainerHeight = () => {
-		const target = _container.current;
-		return `${target.scrollHeight}px`;
-	};
-
-	const animate = (fn, delay) => {
-		const start = new Date().getTime();
-
-		const loop = () => {
-			const current = new Date().getTime();
-			const elapsedTime = current - start;
-
-			elapsedTime >= delay ? fn.call() : requestAnimationFrame(loop);
-		};
-
-		requestAnimationFrame(loop);
-		return;
+	const animateNow = (fn, x, X) => {
+		const { stiffness, damping } = preset[selectedPreset];
+		animate(
+			{
+				frameRate: 1000 / 60,
+				x: x,
+				destX: X,
+				v: rest.velocity || 0,
+				k: stiffness,
+				b: damping,
+				precision: rest.precision || 0.01,
+				mass: rest.mass || 1,
+				el: container.current,
+				key: 'height'
+			},
+			fn
+		);
 	};
 
 	const showContents = () => {
-		const newHeight = getContainerHeight();
-		setBeforeHeight(height);
-		setHeight(newHeight);
-
 		setShowContent(true);
-		animate(() => {
-			setHeight(finalHeight);
-			setShown(true);
-			if (typeof onClick === 'function') onClick.call(null, true);
-		}, duration);
+		setShown(true);
+		animateNow(
+			() => {
+				setHeight(finalHeight);
+				if (typeof onClick === 'function') onClick.call(null, true);
+			},
+			minHeight,
+			maxAvailableHeight
+		);
 	};
 
 	const hideContents = () => {
-		const newHeight = getContainerHeight();
+		setShown(false);
+		setShowContent(false);
 
-		animate(() => {
-			setHeight(newHeight);
-		}, 1);
-
-		animate(() => {
-			setHeight(beforeHeight);
-		}, duration);
-
-		animate(() => {
-			setShown(false);
-			setShowContent(false);
-			if (typeof onClick === 'function') onClick.call(null, false);
-		}, duration * 2);
+		animateNow(
+			() => {
+				setHeight(beforeHeight);
+				if (typeof onClick === 'function') onClick.call(null, false);
+			},
+			maxAvailableHeight,
+			minHeight
+		);
 	};
 
 	const toggleHeight = () => {
@@ -144,22 +141,23 @@ const ReadMore = ({
 
 	const renderFade = () => {
 		if (!rest.fade) return null;
-		if (show) return null;
 		if (contentHasSameHeightOrLess()) return null;
 
 		const colorStopTop = rest.colorStopTop || 'rgba(255, 255, 255, 0)';
 		const colorStopBottom = rest.colorStopBottom || 'white';
-		const fadeHeight = rest.fadeHeight || height / 2;
+		const fadeHeight = rest.fadeHeight || beforeHeight / 2;
 
 		return (
 			<div
 				className="readmore--fade"
 				style={{
+					opacity: show ? 0 : 1,
 					width: '100%',
 					position: 'absolute',
 					height: fadeHeight,
 					bottom: 0,
-					backgroundImage: `linear-gradient(to bottom, ${colorStopTop}, ${colorStopBottom})`
+					backgroundImage: `linear-gradient(to bottom, ${colorStopTop}, ${colorStopBottom})`,
+					transition: 'opacity 250ms ease-in'
 				}}
 			/>
 		);
@@ -170,7 +168,7 @@ const ReadMore = ({
 			<div
 				className="readmore__container"
 				ref={container}
-				style={{ height, ...getDefaultStyle(duration, easing) }}
+				style={{ height, ...getDefaultStyle() }}
 			>
 				{showChildren()}
 				{renderFade()}
@@ -197,8 +195,6 @@ ReadMore.propTypes = {
 	displayHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	btnText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	btnTextShown: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-	timing: PropTypes.number,
-	timingFunction: PropTypes.string,
 	defaultShownOnLess: PropTypes.oneOfType([
 		PropTypes.string,
 		PropTypes.element
@@ -211,7 +207,20 @@ ReadMore.propTypes = {
 	fade: PropTypes.bool,
 	fadeHeight: PropTypes.number,
 	colorStopBottom: PropTypes.string,
-	colorStopTop: PropTypes.string
+	colorStopTop: PropTypes.string,
+	precision: PropTypes.number,
+	preset: PropTypes.oneOf([
+		'noWobble',
+		'wobbly',
+		'gentle',
+		'stiff',
+		'slow',
+		'molasses'
+	]),
+	mass: PropTypes.number,
+	velocity: PropTypes.number,
+	stiffness: PropTypes.number,
+	damping: PropTypes.number
 };
 
 export default ReadMore;

@@ -1,6 +1,6 @@
 # React Simple Readmore
 
-React component for animating height using Transitions.
+React component for animating height using Spring Factor.
 
 ## Quick start
 
@@ -40,6 +40,7 @@ const App = () => {
 					{shown ? 'Read Less' : 'Read More'}
 				</button>
 			}
+			preset='wobbly'
 		>
 			<p
 				dangerouslySetInnerHTML={{
@@ -68,20 +69,24 @@ Then open [`localhost:3000`](http://localhost:3000) in your browser of choice.
 
 ## API
 
-| Prop               | Type                                             |                  Default |
-| :----------------- | :----------------------------------------------- | -----------------------: |
-| minHeight          | Number/String                                    |                       50 |
-| displayHeight      | Number/String                                    |                   'auto' |
-| btnText            | Text/Component (props ignored if btn is present) |                          |
-| btnTextShown       | Text/Component (props ignored if btn is present) |                          |
-| timing             | Number                                           |                      350 |
-| timingFunction     | String                                           |                'ease-in' |
-| defaultShownOnLess | Text/Component                                   |                          |
-| btn                | Component                                        |                          |
-| onClick            | Function                                         |                          |
-| btnClassName       | String                                           |                          |
-| btnStyles          | Object                                           |                          |
-| fade               | Boolean                                          |                          |
-| fadeHeight         | Number                                           |              minHeight/2 |
-| colorStopTop       | String                                           | 'rgba(255, 255, 255, 0)' |
-| colorStopBottom    | String                                           |                  'white' |
+| Prop               | Type                                                                         |                  Default |
+| :----------------- | :--------------------------------------------------------------------------- | -----------------------: |
+| minHeight          | Number/String                                                                |                       50 |
+| displayHeight      | Number/String                                                                |                   'auto' |
+| btnText            | Text/Component (props ignored if btn is present)                             |                          |
+| btnTextShown       | Text/Component (props ignored if btn is present)                             |                          |
+| defaultShownOnLess | Text/Component                                                               |                          |
+| btn                | Component                                                                    |                          |
+| onClick            | Function                                                                     |                          |
+| btnClassName       | String                                                                       |                          |
+| btnStyles          | Object                                                                       |                          |
+| fade               | Boolean                                                                      |                          |
+| fadeHeight         | Number                                                                       |              minHeight/2 |
+| colorStopTop       | String                                                                       | 'rgba(255, 255, 255, 0)' |
+| colorStopBottom    | String                                                                       |                  'white' |
+| precision          | Number                                                                       |                     0.01 |
+| velocity           | Number                                                                       |                        0 |
+| mass               | Number                                                                       |                        1 |
+| stiffness          | Number                                                                       |                          |
+| damping            | Number                                                                       |                          |
+| prest              | String of type ['noWobble', 'gentle', 'wobbly', 'stiff', 'slow', 'molasses'] |                          |
